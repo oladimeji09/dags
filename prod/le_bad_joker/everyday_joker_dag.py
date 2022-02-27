@@ -1,20 +1,22 @@
 from airflow import DAG
 from datetime import datetime
 from airflow.operators.python import PythonOperator
-import sys, python_helper as ph
+import sys
+from python_helpers import python_helper as ph
+from python_helpers import google_helper as gh
 sys.path.insert(0,ph.root_fp+'everyday_joker')
 import everyday_joker as jk
 
 default_args = {
     'owner': 'airflow',
-    'start_date':datetime(2022, 2, 6),
+    'start_date':datetime(2022, 2, 27),
                 }
 
 with DAG('everyday_joker',
-        schedule_interval ='30 19 * * *',
+        schedule_interval ='@daily',
         default_args= default_args,
         tags =['everyday_joker','instgram'],
-        catchup = True
+        catchup = False
         ) as dag:
 
         share_joke = PythonOperator(
@@ -35,4 +37,4 @@ with DAG('everyday_joker',
         #     op_kwargs={"users": 20}
         #     )
 
-        share_joke 
+        share_joke

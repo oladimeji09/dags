@@ -1,7 +1,8 @@
 from airflow import DAG
 from datetime import datetime
 from airflow.operators.python import PythonOperator
-import sys, python_helper as ph
+import sys
+from python_helpers import python_helper as ph
 sys.path.insert(0,ph.root_fp+'top-10-billionaires')
 import top_10_billionaires as jk
 
