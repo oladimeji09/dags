@@ -42,3 +42,9 @@ with DAG('top_10_billionaires',
         #     op_kwargs={"users": 20}
         #     )
         share_img #>> follow_and_comment >> delete_media >> unfollow_user
+
+
+# /bin/bash -c 'airflow initdb; \
+#             airflow scheduler'
+#
+# /bin/bash -c 'airflow webserver'
