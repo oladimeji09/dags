@@ -5,7 +5,7 @@ import sys
 from python_helpers import python_helper as ph
 from python_helpers import google_helper as gh
 sys.path.insert(0,ph.root_fp+'docx_pdf')
-import testing as pt
+import worker as wk
 
 default_args = {
     'owner': 'airflow',
@@ -19,9 +19,9 @@ with DAG('docx_pdf',
         catchup = False
         ) as dag:
 
-        share_img = PythonOperator(
+        create_pdfs = PythonOperator(
             task_id = 'send_email',
-            python_callable = pt.create_test,
+            python_callable = wk.create_test,
             )
 
-        share_img
+        create_pdfs
