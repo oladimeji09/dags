@@ -18,6 +18,13 @@ with DAG('top_10_billionaires',
         catchup = False
         ) as dag:
 
+        delete_media = PythonOperator(
+            task_id = 'delete_media',
+            python_callable = jk.ig.delete_media,
+            op_kwargs={"username": jk.creds.get('user_name'),
+                    "password": jk.creds.get('password'), "N":10 }
+            )
+            
         share_img = PythonOperator(
             task_id = 'share_joke',
             python_callable = jk.upload_media,
@@ -30,18 +37,13 @@ with DAG('top_10_billionaires',
         #     op_kwargs={"tags": 3, "top_media": 5, "follow" : 'N'}
         #     )
         #
-        # delete_media = PythonOperator(
-        #     task_id = 'delete_media',
-        #     python_callable = jk.ig.delete_media,
-        #     op_kwargs={"username": jk.creds.get('user_name'),
-        #             "password": jk.creds.get('password'), "N":10 }
-        #     )
         # unfollow_user = PythonOperator(
         #     task_id = 'unfollow_user',
         #     python_callable = jk.unfollow_user,
         #     op_kwargs={"users": 20}
         #     )
-        share_img #>> follow_and_comment >> delete_media >> unfollow_user
+        # share_img #>> follow_and_comment >> delete_media >> unfollow_user
+        delete_media >> share_img #>> follow_and_comment >>  >> unfollow_user
 
 
 # /bin/bash -c 'airflow initdb; \
