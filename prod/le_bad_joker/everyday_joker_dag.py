@@ -25,16 +25,16 @@ with DAG('everyday_joker',
             op_kwargs={"tags": 25}
             )
 
-        # follow_and_comment = PythonOperator(
-        #     task_id = 'follow_and_comment',
-        #     python_callable = jk.follow_and_comment,
-        #     op_kwargs={"tags": 1, "top_media": 1, "follow" : 'N'}
-        #     )
-
+        follow_and_comment = PythonOperator(
+            task_id = 'follow_and_comment',
+            python_callable = jk.follow_and_comment,
+            op_kwargs={"tag_list": 1, "top_media": 5, "follow" : 'N'}
+            )
+            
         # unfollow_user = PythonOperator(
         #     task_id = 'unfollow_user',
         #     python_callable = jk.unfollow_user,
         #     op_kwargs={"users": 20}
         #     )
 
-        share_joke
+        share_joke >> follow_and_comment
