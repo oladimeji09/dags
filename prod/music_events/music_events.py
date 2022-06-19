@@ -10,11 +10,10 @@ default_args = {
     'start_date':datetime(2022, 5, 7),
                 }
 
-dl = ph.creds.get('emails')
-sh = gh.open_wb('1Vc7RkGbbk9THM6AeU2vBMpBOnSlDzpyrFNI9Mp4rWz0').worksheet('Data')
-
 def main():
     """Delete google calendar events then insert new events from DF"""
+    dl = ph.creds.get('emails')
+    sh = gh.open_wb('1Vc7RkGbbk9THM6AeU2vBMpBOnSlDzpyrFNI9Mp4rWz0').worksheet('Data')
     gh.delete_events(dl.get('email2'),'***')
     for row in sh.get_all_records():
         if row['Event Date']:
