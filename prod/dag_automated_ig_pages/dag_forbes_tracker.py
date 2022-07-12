@@ -12,23 +12,23 @@ default_args = {
                 }
 
 with DAG('forbes_tracker',
-        schedule_interval ='30 19 * * 1-5',
+        schedule_interval ='15 16 * * 1-5',
         default_args= default_args,
         tags =['forbes_tracker','instgram','ig'],
         catchup = False
         ) as dag:
 
         share_img = PythonOperator(
-            task_id = 'share_joke',
+            task_id = 'share_img',
             python_callable = jk.upload_media,
-            op_kwargs={"num_rich_ppl": 5}
+            op_kwargs={"num_rich_ppl": 10}
             )
 
         delete_media = PythonOperator(
             task_id = 'delete_media',
             python_callable = jk.ig.delete_media,
             op_kwargs={"username": jk.creds.get('user_name'),
-                    "password": jk.creds.get('password'), "N":5 }
+                    "password": jk.creds.get('password'), "N":10 }
             )
         # unfollow_user = PythonOperator(
         #     task_id = 'unfollow_user',

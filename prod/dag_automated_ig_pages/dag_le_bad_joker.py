@@ -28,7 +28,7 @@ with DAG('le_bad_joker',
         follow_and_comment = PythonOperator(
             task_id = 'follow_and_comment',
             python_callable = jk.follow_and_comment,
-            op_kwargs={"subject":"comedy", "tags": 1, "top_media": 1, "follow" : 'N'}
+            op_kwargs={"subject":"comedy", "tags": 2, "top_media": 5, "follow" : 'Y'}
             )
 #
 #         # unfollow_user = PythonOperator(
